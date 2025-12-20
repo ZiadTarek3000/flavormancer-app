@@ -1,8 +1,17 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;          /* مهم جداً */
+  min-height: 100vh;    /* يملى طول الشاشة */
+  padding: 1rem;
   text-align: center;
+  background-color: transparent;
+}
+
+/* الشاشات الكبيرة بس */
+@media (min-width: 1280px) {
+  #root {
+    max-width: 1280px;
+    margin: 0 auto;     /* يتسنتر */
+  }
 }
 
 .logo {
