@@ -1,8 +1,32 @@
 import RegularFoodCards from "./RegularFoodCards";
-import food_dish from "../assets/food_dish.jpg"
 import { Dot } from 'lucide-react';
+import { useEffect, useState } from "react";
+
+
+
+interface RegularFoodCardData {
+  id: number;
+  img: string;
+  title: string;
+  desc: string;
+  price: number;
+  rating: number;
+  reviews: number;
+}
 
 export default function RegularFood() {
+
+
+  const [regularFood, setRegularFood] = useState<RegularFoodCardData[]>([]);
+    
+      useEffect(() => {
+        fetch('http://localhost:3001/regularFood')
+          .then(res => res.json())
+          .then(data => setRegularFood(data))
+          .catch(err => console.error("Error fetching regularFood:", err));
+      }, []);
+
+
   return (
     <section className="py-24 text-center flex flex-col gap-8">
 
@@ -23,56 +47,40 @@ export default function RegularFood() {
         <div className="flex flex-col justify-between gap-10">
 
           <div className="flex flex-row justify-between mb-20">
-            <RegularFoodCards
-            img={food_dish}
-            title="Salads"
-            desc="This is a great green salad that is very healthy. You can eat it with any meal."
-            price={3.50}
-            reviews={169}
-          />
-
-          <RegularFoodCards
-            img={food_dish}
-            title="Salads"
-            desc="This is a great green salad that is very healthy. You can eat it with any meal."
-            price={3.50}
-            reviews={169}
-          />
-
-          <RegularFoodCards
-            img={food_dish}
-            title="Salads"
-            desc="This is a great green salad that is very healthy. You can eat it with any meal."
-            price={3.50}
-            reviews={169}
-          />
+            {regularFood.length > 0 ? (
+                regularFood.map((item) => (
+                <RegularFoodCards
+                key={item.id}
+                img={item.img}
+                title={item.title}
+                desc={item.desc}
+                price={item.price}
+                rating={item.rating}
+                reviews={item.reviews}
+                />
+                ))
+                ) : (
+                <p className="w-full text-center text-gray-500">Loading special menu...</p>
+                )}
           </div>
 
           
           <div className="flex flex-row justify-between">
-            <RegularFoodCards
-            img={food_dish}
-            title="Salads"
-            desc="This is a great green salad that is very healthy. You can eat it with any meal."
-            price={3.50}
-            reviews={169}
-          />
-
-          <RegularFoodCards
-            img={food_dish}
-            title="Salads"
-            desc="This is a great green salad that is very healthy. You can eat it with any meal."
-            price={3.50}
-            reviews={169}
-          />
-
-          <RegularFoodCards
-            img={food_dish}
-            title="Salads"
-            desc="This is a great green salad that is very healthy. You can eat it with any meal."
-            price={3.50}
-            reviews={169}
-          />
+            {regularFood.length > 0 ? (
+                regularFood.map((item) => (
+                <RegularFoodCards
+                key={item.id}
+                img={item.img}
+                title={item.title}
+                desc={item.desc}
+                price={item.price}
+                rating={item.rating}
+                reviews={item.reviews}
+                />
+                ))
+                ) : (
+                <p className="w-full text-center text-gray-500">Loading special menu...</p>
+                )}
           </div>
 
         </div>

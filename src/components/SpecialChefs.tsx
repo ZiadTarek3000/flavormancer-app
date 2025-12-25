@@ -1,7 +1,25 @@
 import ChefCard from "./ChefCard";
-import chef from "../assets/chef.jpg"
+import { useEffect, useState } from "react";
+
+interface ChefData {
+  id: number;
+  img: string;
+  offset: boolean;
+}
+
 
 export default function SpecialChefs() {
+
+  const [chefs, setChefs] = useState<ChefData[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3001/chefs")
+      .then(res => res.json())
+      .then(data => setChefs(data))
+      .catch(err => console.error("Error fetching chefs:", err));
+  }, []);
+
+  
   return (
     <section className="py-24 text-center flex flex-col gap-8">
 
@@ -19,14 +37,13 @@ export default function SpecialChefs() {
       {/* Cards */}
       <div className="flex justify-center gap-16 mt-16">
 
-        {/* Left */}
-        <ChefCard img={chef} />
-
-        {/* Middle (lower) */}
-        <ChefCard img={chef} offset />
-
-        {/* Right */}
-        <ChefCard img={chef} />
+        {chefs.map((chef) => (
+          <ChefCard
+            key={chef.id}
+            img={chef.img}
+            offset={chef.offset}
+          />
+        ))}
 
       </div>
     </section>

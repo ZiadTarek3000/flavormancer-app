@@ -5,6 +5,7 @@ interface RegularFoodCardProps {
   title: string;
   desc: string;
   price: number;
+  rating: number;
   reviews: number;
 }
 
@@ -13,6 +14,7 @@ export default function RegularFoodCards({
   title,
   desc,
   price,
+  rating,
   reviews,
 }: RegularFoodCardProps) {
   return (
@@ -28,7 +30,7 @@ export default function RegularFoodCards({
 
       {/* Rating */}
       <div className="flex justify-center items-center gap-1 mt-2 text-yellow-500">
-        {[...Array(5)].map((_, i) => (
+        {[...Array(rating)].map((_, i) => (
           <Star key={i} size={14} fill="#facc15" stroke="#facc15" />
         ))}
         <span className="text-gray-400 text-sm ml-1">

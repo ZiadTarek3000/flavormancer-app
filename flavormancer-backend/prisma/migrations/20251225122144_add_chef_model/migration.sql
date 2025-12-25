@@ -1,0 +1,6 @@
+-- CreateTable
+CREATE TABLE "Chef" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "img" TEXT NOT NULL,
+    "offset" BOOLEAN NOT NULL DEFAULT false
+);

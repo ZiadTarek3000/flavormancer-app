@@ -1,0 +1,12 @@
+-- CreateTable
+CREATE TABLE "SpecialMenuCard" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "img" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "desc" TEXT,
+    "price" REAL NOT NULL,
+    "rating" INTEGER NOT NULL DEFAULT 5,
+    "reviews" INTEGER NOT NULL DEFAULT 169,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL
+);

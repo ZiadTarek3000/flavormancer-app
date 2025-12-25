@@ -1,8 +1,28 @@
 import SpecialMenuCards from "./SpecialMenuCards";
-import food_dish from "../assets/food_dish.jpg"
 import { Dot } from 'lucide-react';
+import { useEffect, useState } from "react";
+
+
+interface SpecialMenuCardData {
+  id: number;
+  img: string;
+  title: string;
+  price: number;
+  rating: number;
+  reviews: number;
+}
 
 export default function SpecialMenu() {
+
+
+  const [menuData, setMenuData] = useState<SpecialMenuCardData[]>([]);
+  
+    useEffect(() => {
+      fetch('http://localhost:3001/menuData')
+        .then(res => res.json())
+        .then(data => setMenuData(data))
+        .catch(err => console.error("Error fetching menuData:", err));
+    }, []);
   return (
     
     <section className="py-24 text-center flex flex-col gap-8">
@@ -18,28 +38,20 @@ export default function SpecialMenu() {
 
           <div className='flex flex-row justify-around'>
 
-            <SpecialMenuCards
-              img={food_dish}
-              title="Chicken Burger"
-              desc="This is an excellent chicken burger that is very healty"
-              price={5.80} 
-            />
-
-
-             <SpecialMenuCards
-               img={food_dish}
-               title="Chicken Burger"
-               desc="This is an excellent chicken burger that is very healty"
-               price={5.80} 
-              />
-
-
-             <SpecialMenuCards
-               img={food_dish}
-               title="Chicken Burger"
-               desc="This is an excellent chicken burger that is very healty"
-               price={5.80} 
-              />
+            {menuData.length > 0 ? (
+                        menuData.map((item) => (
+                          <SpecialMenuCards
+                            key={item.id}
+                            img={item.img}
+                            title={item.title}
+                            price={item.price}
+                            rating={item.rating}
+                            reviews={item.reviews}
+                          />
+                        ))
+                      ) : (
+                        <p className="w-full text-center text-gray-500">Loading special menu...</p>
+                      )}
 
           </div>
 
