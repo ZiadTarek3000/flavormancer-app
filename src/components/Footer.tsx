@@ -1,11 +1,21 @@
 const Footer = () => {
   return (
-    <footer className="bg-[#eaf5df] rounded-2xl w-full px-2 py-5 text-left">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-
+    <footer className="bg-[#eaf5df] w-full px-10 py-12 rounded-2xl">
+      <div
+        className="
+          grid
+          grid-cols-4
+          gap-16
+          lg:grid-cols-4
+          md:grid-cols-2
+          sm:grid-cols-1
+        "
+      >
         {/* Menu */}
         <div>
-          <h3 className="text-2xl font-semibold mb-4 text-black">Menu</h3>
+          <h3 className="text-2xl font-semibold mb-4 text-black">
+            Menu
+          </h3>
           <ul className="space-y-2 text-gray-600">
             <li>Home</li>
             <li>Why Choose</li>
@@ -17,7 +27,9 @@ const Footer = () => {
 
         {/* Help */}
         <div>
-          <h3 className="text-2xl font-semibold mb-4 text-black">Help</h3>
+          <h3 className="text-2xl font-semibold mb-4 text-black">
+            Help
+          </h3>
           <ul className="space-y-2 text-gray-600">
             <li>Privacy</li>
             <li>Terms & Condition</li>
@@ -27,7 +39,9 @@ const Footer = () => {
 
         {/* Contact */}
         <div>
-          <h3 className="text-2xl font-semibold mb-4 text-black">Contact</h3>
+          <h3 className="text-2xl font-semibold mb-4 text-black">
+            Contact
+          </h3>
           <ul className="space-y-2 text-gray-600">
             <li>+123 456 789</li>
             <li>Info@Foodied.Com</li>
@@ -38,24 +52,57 @@ const Footer = () => {
         {/* Newsletter */}
         <div>
           <h3 className="text-2xl font-semibold mb-4 text-black">
-            Subscribe Our <br /> Newsletter
+            Subscribe Our Newsletter
           </h3>
 
-          <div className="flex">
+          <div
+            className="
+              flex
+              items-center
+              w-full
+              sm:flex-col
+            "
+          >
             <input
               type="email"
               placeholder="Enter Your Email"
-              className="w-full px-4 py-2 rounded-l-lg border border-gray-300 focus:outline-none"
+              className="
+                flex-1
+                px-4
+                py-2
+                border
+                border-gray-300
+                rounded-l-lg
+                sm:rounded-lg
+                sm:w-full
+                focus:outline-none
+              "
             />
-            <button className="bg-[#7bbf5a] text-white px-6 rounded-r-lg hover:bg-[#6aac4f] transition">
+
+            <button
+              className="
+                bg-[#7bbf5a]
+                text-white
+                px-6
+                py-2
+                rounded-r-lg
+                sm:rounded-lg
+                sm:w-full
+                sm:mt-2
+                hover:bg-[#6aac4f]
+                transition
+                whitespace-nowrap
+              "
+            >
               Subscribe
             </button>
           </div>
         </div>
-
       </div>
     </footer>
   );
 };
 
 export default Footer;
+
+

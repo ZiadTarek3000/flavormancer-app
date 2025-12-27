@@ -1,42 +1,63 @@
-import { Soup , ShieldCheck , Van} from 'lucide-react';
-import ChooseUsCards from './ChooseUsCards';
+import { Soup, ShieldCheck, Van } from 'lucide-react'
+import ChooseUsCards from './ChooseUsCards'
 
 export default function ChooseUs() {
   return (
-    
-    <section className="py-24 text-center flex flex-col gap-8">
+    <section className="py-16 sm:py-20 lg:py-24 text-center flex flex-col gap-6 sm:gap-8">
 
       {/* Section Title */}
-      <h2 className="text-4xl font-bold text-black">WHY CHOOSE US?</h2>
+      <h2 className="
+        font-bold text-black
+        text-2xl
+        sm:text-3xl
+        lg:text-4xl
+      ">
+        WHY CHOOSE US?
+      </h2>
 
+      {/* Description */}
+      <p className="
+        max-w-xl
+        mx-auto
+        text-gray-600
+        text-sm
+        sm:text-base
+      ">
+        You choose us because you get the best quality food from us and we deliver fast.
+      </p>
 
-      <div className='w-100 m-auto'>
-        You will choose us because you get the best quality food from us and we deliver fast.
-      </div>
-
-      
-      
-      <div className='flex flex-row justify-between'>
-        <ChooseUsCards 
-        icon={Soup} 
-        title="Serve Healthy Food" 
-        desc="We serve all healthy food here. You can choose any food you like."  />
+      {/* Cards Grid */}
+      <div className="
+        grid
+        grid-cols-1
+        sm:grid-cols-2
+        lg:grid-cols-3
+        gap-6
+        lg:gap-8
+        mt-8
+        place-items-center
+      ">
+        <ChooseUsCards
+          icon={Soup}
+          title="Serve Healthy Food"
+          desc="We serve all healthy food here. You can choose any food you like."
+        />
 
         <ChooseUsCards
-        icon={ShieldCheck} 
-        title="Best Quality"
-        desc="Our food quality is excellent. You will get exactly what you want here."  />
+          icon={ShieldCheck}
+          title="Best Quality"
+          desc="Our food quality is excellent. You will get exactly what you want here."
+        />
 
+        <ChooseUsCards
+          icon={Van}
+          title="Fast Delivery"
+          desc="You can say the main goal of our delivery man is to deliver orders quickly and recieve it shortly."
+        />
+      </div>
 
-        <ChooseUsCards 
-        icon={Van} 
-        title="Fast Delivery" 
-        desc="You can say the main goal of our delivery man is to deliver orders quickly. You will recieve it shortly after ordering"  />
-        
-       </div>
-
-    </section>  
-  );
+    </section>
+  )
 }
 
 

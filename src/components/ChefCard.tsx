@@ -7,25 +7,29 @@ export default function ChefCard({ img, offset = false }: ChefCardProps) {
   return (
     <div
       className={`
+        relative
         rounded-3xl
-        w-72
-        h-[420px]
+        overflow-hidden
         flex
         items-end
         justify-center
-        overflow-hidden
         transition-all
         duration-300
-        ease-out
         hover:-translate-y-2
         hover:shadow-2xl
-        ${offset ? "mt-10" : ""}
+
+        w-full
+        max-w-xs
+        aspect-3/5
+
+        ${offset ? "lg:mt-12" : ""}
       `}
     >
       <img
         src={img}
         alt="Chef"
         className="
+          w-full
           h-full
           object-contain
           transition-transform
@@ -36,4 +40,5 @@ export default function ChefCard({ img, offset = false }: ChefCardProps) {
     </div>
   );
 }
+
 
