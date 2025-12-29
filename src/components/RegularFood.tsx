@@ -1,6 +1,7 @@
 import RegularFoodCards from "./RegularFoodCards";
 import { Dot } from "lucide-react";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 interface RegularFoodCardData {
   id: number;
@@ -24,30 +25,48 @@ export default function RegularFood() {
       );
   }, []);
 
-  return (
-    <section className="py-24 flex flex-col gap-12 text-center">
-      {/* Title */}
-      <h2 className="text-4xl font-bold text-black">
-        OUR REGULAR FOOD
-      </h2>
+  const gridVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
 
-      {/* Description */}
-      <p className="max-w-xl mx-auto text-gray-500">
+  return (
+    <motion.section
+      className="py-24 flex flex-col gap-12 text-center"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+    >
+      {/* Title */}
+      <motion.h2
+        className="text-4xl font-bold text-black"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        OUR REGULAR FOOD
+      </motion.h2>
+
+      <motion.p
+        className="max-w-xl mx-auto text-gray-500"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+      >
         This is our daily food list. Here you will find all kinds of food.
         Choose your favorite food and order.
-      </p>
+      </motion.p>
 
       {/* Cards Grid */}
-      <div
-        className="
-          grid
-          grid-cols-1
-          md:grid-cols-2
-          lg:grid-cols-3
-          gap-16
-          justify-items-center
-          mt-12
-        "
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 justify-items-center mt-12"
+        variants={gridVariants}
       >
         {regularFood.length > 0 ? (
           regularFood.map((item) => (
@@ -66,17 +85,21 @@ export default function RegularFood() {
             Loading regular food...
           </p>
         )}
-      </div>
+      </motion.div>
 
       {/* Dots */}
-      <div className="flex items-center justify-center gap-2 mt-8">
+      <motion.div
+        className="flex items-center justify-center gap-2 mt-8"
+        initial={{ y: 20, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+      >
         <Dot className="text-green-500 w-8 h-8" />
         <Dot className="text-gray-400 w-8 h-8" />
         <Dot className="text-gray-400 w-8 h-8" />
         <Dot className="text-gray-400 w-8 h-8" />
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 }
-
 

@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 
 interface RegularFoodCardProps {
@@ -18,7 +19,11 @@ export default function RegularFoodCards({
   reviews,
 }: RegularFoodCardProps) {
   return (
-    <div
+    <motion.div
+      initial={{ y: 30, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
       className="
         relative
         bg-white
@@ -31,102 +36,71 @@ export default function RegularFoodCards({
         flex-col
         items-center
         text-center
-        transition-all
-        duration-300
-        hover:-translate-y-2
-        hover:shadow-2xl
         max-w-sm
         w-full
         mt-10
       "
     >
       {/* Image */}
-      <div
-        className="
-          absolute
-          -top-20
-          left-1/2
-          -translate-x-1/2
-          w-40
-          h-40
-          rounded-full
-          border-4
-          border-green-500
-          overflow-hidden
-          bg-white
-          flex
-          items-center
-          justify-center
-          shadow-md
-        "
-      >
-        <img
-          src={img}
-          alt={title}
-          className="w-full h-full object-cover"
-        />
+      <div className="
+        absolute
+        -top-20
+        left-1/2
+        -translate-x-1/2
+        w-40
+        h-40
+        rounded-full
+        border-4
+        border-green-500
+        overflow-hidden
+        bg-white
+        flex
+        items-center
+        justify-center
+        shadow-md
+      ">
+        <img src={img} alt={title} className="w-full h-full object-cover" />
       </div>
 
       {/* Title */}
-      <h3 className="text-xl font-bold mt-2">
-        {title}
-      </h3>
+      <h3 className="text-xl font-bold mt-2">{title}</h3>
 
       {/* Rating */}
       <div className="flex items-center gap-1 mt-2 text-yellow-500">
         {[...Array(rating)].map((_, i) => (
-          <Star
-            key={i}
-            size={14}
-            fill="#facc15"
-            stroke="#facc15"
-          />
+          <Star key={i} size={14} fill="#facc15" stroke="#facc15" />
         ))}
-        <span className="text-gray-400 text-sm ml-1">
-          ({reviews})
-        </span>
+        <span className="text-gray-400 text-sm ml-1">({reviews})</span>
       </div>
 
       {/* Description */}
-      <p className="text-gray-500 text-sm mt-3 leading-relaxed">
-        {desc}
-      </p>
+      <p className="text-gray-500 text-sm mt-3 leading-relaxed">{desc}</p>
 
       {/* Price + Button */}
       <div className="flex items-center gap-4 mt-6">
-        <span className="
-          px-4
-          py-1
-          border
-          border-gray-600
-          rounded-full
-          font-semibold
-          text-sm
-        ">
+        <span className="px-4 py-1 border border-gray-600 rounded-full font-semibold text-sm">
           ${price.toFixed(2)}
         </span>
-
-        <button
-          className="
-            bg-green-500
-            text-white
-            border
-            border-green-500
-            px-4
-            py-1.5
-            rounded-full
-            text-sm
-            transition
-            hover:bg-white
-            hover:text-black
-            hover:border-black
-          "
-        >
+        <button className="
+          bg-green-500
+          text-white
+          border
+          border-green-500
+          px-4
+          py-1.5
+          rounded-full
+          text-sm
+          transition
+          hover:bg-white
+          hover:text-black
+          hover:border-black
+        ">
           Buy Now
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }
+
 
 

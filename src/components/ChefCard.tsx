@@ -1,11 +1,33 @@
+import { motion } from "framer-motion";
+
 interface ChefCardProps {
   img: string;
   offset?: boolean;
+  direction?: "left" | "right" | "bottom";
+  index?: number;
 }
 
-export default function ChefCard({ img, offset = false }: ChefCardProps) {
+export default function ChefCard({ img, offset = false, direction = "bottom", index = 0 }: ChefCardProps) {
+  const variants = {
+    hidden: {
+      opacity: 0,
+      x: direction === "left" ? -100 : direction === "right" ? 100 : 0,
+      y: direction === "bottom" ? 50 : 0,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      transition: { duration: 0.6, delay: index * 0.2 },
+    },
+  };
+
   return (
-    <div
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={variants}
       className={`
         relative
         rounded-3xl
@@ -37,7 +59,7 @@ export default function ChefCard({ img, offset = false }: ChefCardProps) {
           hover:scale-105
         "
       />
-    </div>
+    </motion.div>
   );
 }
 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import "./App.css";
 import CategoryCard from "./components/CategoryCard";
 import Hungry from "./components/Hungry";
@@ -27,18 +28,29 @@ function App() {
       .catch((err) => console.error("Error fetching categories:", err));
   }, []);
 
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.1, 
+      },
+    },
+  };
+
   return (
     <div className="w-full overflow-hidden">
-      {/* ===== Navbar (Full Width) ===== */}
       <Navbar />
 
-      {/* ===== Main Content (Container) ===== */}
       <main className="container mx-auto px-4 flex flex-col gap-12">
-        {/* Hero Section */}
         <Hungry />
 
-        {/* Categories */}
-        <section className="w-full flex flex-wrap justify-center lg:justify-between gap-6">
+        {/* Categories Section */}
+        <motion.section
+          className="w-full flex flex-wrap justify-center lg:justify-between gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {categories.length > 0 ? (
             categories.map((cat) => (
               <CategoryCard
@@ -54,25 +66,18 @@ function App() {
               Loading delicious food...
             </p>
           )}
-        </section>
+        </motion.section>
 
-        {/* Why Choose Us */}
         <ChooseUs />
-
-        {/* Special Menu */}
         <SpecialMenu />
-
-        {/* Regular Food */}
         <RegularFood />
-
-        {/* Chefs */}
         <SpecialChefs />
       </main>
 
-      {/* ===== Footer (Full Width) ===== */}
       <Footer />
     </div>
   );
 }
 
 export default App;
+

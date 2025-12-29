@@ -1,5 +1,6 @@
 import ChefCard from "./ChefCard";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 interface ChefData {
   id: number;
@@ -19,18 +20,36 @@ export default function SpecialChefs() {
       );
   }, []);
 
+  const getDirection = (index: number, total: number) => {
+    if (total === 1) return "bottom";
+    if (index === 0) return "left";
+    if (index === total - 1) return "right";
+    return "bottom";
+  };
+
   return (
     <section className="py-24 flex flex-col gap-10 text-center">
       {/* Title */}
-      <h2 className="text-4xl font-extrabold text-black">
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="text-4xl font-extrabold text-black"
+      >
         OUR SPECIAL CHEF’s
-      </h2>
+      </motion.h2>
 
       {/* Subtitle */}
-      <p className="text-gray-500 max-w-xl mx-auto">
-        Featured below are some of our special chefs who work
-        to prepare your meals
-      </p>
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="text-gray-500 max-w-xl mx-auto"
+      >
+        Featured below are some of our special chefs who work to prepare your meals
+      </motion.p>
 
       {/* Cards Grid */}
       <div
@@ -44,15 +63,21 @@ export default function SpecialChefs() {
           mt-16
         "
       >
-        {chefs.map((chef) => (
-          <ChefCard
-            key={chef.id}
-            img={chef.img}
-            offset={chef.offset}
-          />
-        ))}
+        {chefs.map((chef, i) => {
+          const direction = getDirection(i, chefs.length);
+          return (
+            <ChefCard
+              key={chef.id}
+              img={chef.img}
+              offset={chef.offset}
+              direction={direction}
+              index={i} 
+            />
+          );
+        })}
       </div>
     </section>
   );
 }
+
 

@@ -1,4 +1,5 @@
 import { ShoppingCart } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface SpecialMenuCardsProps {
   img: string;
@@ -7,6 +8,7 @@ interface SpecialMenuCardsProps {
   price: number;
   rating: number;
   reviews: number;
+  direction?: "left" | "right" | "bottom";
 }
 
 export default function SpecialMenuCards({
@@ -16,9 +18,29 @@ export default function SpecialMenuCards({
   price,
   rating,
   reviews,
+  direction = "bottom",
 }: SpecialMenuCardsProps) {
+
+  const variants = {
+    hidden: {
+      opacity: 0,
+      x: direction === "left" ? -100 : direction === "right" ? 100 : 0,
+      y: direction === "bottom" ? 50 : 0,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      transition: { duration: 0.6 }, 
+    },
+  };
+
   return (
-    <div
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={variants}
       className="
         relative
         w-80
@@ -56,20 +78,14 @@ export default function SpecialMenuCards({
           shadow-md
         "
       >
-        <img
-          src={img}
-          alt={title}
-          className="w-full h-full object-cover"
-        />
+        <img src={img} alt={title} className="w-full h-full object-cover" />
       </div>
 
       <div className="mt-10 flex flex-col gap-2">
-        {/* Title */}
         <h3 className="text-2xl font-bold text-gray-900 text-start">
           {title}
         </h3>
 
-        {/* Description */}
         {desc && (
           <p className="text-sm text-gray-500 text-start">
             {desc}
@@ -78,7 +94,6 @@ export default function SpecialMenuCards({
 
         <div className="flex justify-between items-end">
           <div className="flex flex-col">
-            {/* Rating */}
             <div className="flex items-center mb-2">
               <div className="text-yellow-500 flex text-lg mr-2">
                 {"★".repeat(rating)}
@@ -88,13 +103,11 @@ export default function SpecialMenuCards({
               </span>
             </div>
 
-            {/* Price */}
             <p className="text-3xl text-start text-gray-500">
               ${price.toFixed(2)}
             </p>
           </div>
 
-          {/* Cart Button */}
           <button
             className="
               w-16
@@ -113,7 +126,8 @@ export default function SpecialMenuCards({
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
+
 

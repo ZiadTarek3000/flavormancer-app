@@ -1,6 +1,7 @@
 import SpecialMenuCards from "./SpecialMenuCards";
 import { Dot } from "lucide-react";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 interface SpecialMenuCardData {
   id: number;
@@ -24,15 +25,27 @@ export default function SpecialMenu() {
   return (
     <section className="py-24 flex flex-col gap-12 text-center">
       {/* Section Title */}
-      <h2 className="text-4xl font-bold text-black">
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="text-4xl font-bold text-black"
+      >
         SPECIAL MENU
-      </h2>
+      </motion.h2>
 
       {/* Description */}
-      <p className="max-w-xl mx-auto text-gray-600">
-        Some of our special menu is given here. These are what people order more.
-        If you want you can order from here.
-      </p>
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="max-w-xl mx-auto text-gray-600"
+      >
+        Some of our special menu is given here. These are what people order
+        more. If you want you can order from here.
+      </motion.p>
 
       {/* Cards Grid */}
       <div
@@ -46,20 +59,24 @@ export default function SpecialMenu() {
         "
       >
         {menuData.length > 0 ? (
-          menuData.map((item) => (
-            <SpecialMenuCards
-              key={item.id}
-              img={item.img}
-              title={item.title}
-              price={item.price}
-              rating={item.rating}
-              reviews={item.reviews}
-            />
-          ))
+          menuData.map((item, i) => {
+            const direction =
+              i % 3 === 0 ? "left" : i % 3 === 1 ? "bottom" : "right";
+
+            return (
+              <SpecialMenuCards
+                key={item.id}
+                img={item.img}
+                title={item.title}
+                price={item.price}
+                rating={item.rating}
+                reviews={item.reviews}
+                direction={direction}
+              />
+            );
+          })
         ) : (
-          <p className="col-span-full text-gray-500">
-            Loading special menu...
-          </p>
+          <p className="col-span-full text-gray-500">Loading special menu...</p>
         )}
       </div>
 

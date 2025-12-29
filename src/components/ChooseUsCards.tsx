@@ -1,12 +1,24 @@
+import { motion } from 'framer-motion'
+
 interface ChooseUsCardProps {
   icon: React.ElementType
   title: string
   desc: string
+  direction?: "left" | "right" | "bottom"
 }
 
-export default function ChooseUsCards({ icon: Icon, title, desc }: ChooseUsCardProps) {
+export default function ChooseUsCards({ icon: Icon, title, desc, direction = "bottom" }: ChooseUsCardProps) {
+  const variants = {
+    hidden: { opacity: 0, x: direction === "left" ? -100 : direction === "right" ? 100 : 0, y: direction === "bottom" ? 50 : 0 },
+    visible: { opacity: 1, x: 0, y: 0, transition: { duration: 0.6 } }
+  }
+
   return (
-    <div
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={variants}
       className="
         bg-white
         shadow-xl
@@ -18,7 +30,6 @@ export default function ChooseUsCards({ icon: Icon, title, desc }: ChooseUsCardP
         flex-col
         items-center
         gap-4
-
         w-full
         max-w-sm
       "
@@ -52,9 +63,10 @@ export default function ChooseUsCards({ icon: Icon, title, desc }: ChooseUsCardP
           {desc}
         </p>
       </div>
-    </div>
+    </motion.div>
   )
 }
+
 
 
 
