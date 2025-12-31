@@ -75,6 +75,7 @@ function Navbar() {
               text-sm
               py-2 px-4
               rounded-full
+              cursor-pointer
             "
           >
             Sign Up
@@ -83,7 +84,7 @@ function Navbar() {
           <motion.button
             onClick={() => setMenuOpen(!menuOpen)}
             whileTap={{ scale: 0.9 }}
-            className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition"
+            className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition cursor-pointer"
           >
             {menuOpen ? <X /> : <Menu />}
           </motion.button>

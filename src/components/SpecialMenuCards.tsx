@@ -119,6 +119,7 @@ export default function SpecialMenuCards({
               justify-center
               transition
               hover:bg-green-600
+              cursor-pointer
             "
             aria-label="Add to cart"
           >

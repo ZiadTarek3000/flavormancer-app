@@ -28,14 +28,17 @@ export default function SpecialChefs() {
   };
 
   return (
-    <section className="py-24 flex flex-col gap-10 text-center">
+    <section className="py-10 flex flex-col gap-10 text-center">
       {/* Title */}
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="text-4xl font-extrabold text-black"
+        className="font-bold text-black
+          text-2xl
+          sm:text-3xl
+          lg:text-4xl"
       >
         OUR SPECIAL CHEF’s
       </motion.h2>

@@ -16,9 +16,6 @@ const cardVariants = {
     y: 0,
     opacity: 1,
   },
-  hover: (isMobile: boolean) => ({
-    scale: isMobile ? 1.02 : 1.05,
-  }),
 };
 
 export default function CategoryCard({
@@ -35,7 +32,6 @@ export default function CategoryCard({
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
-      whileHover="hover"
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="bg-white shadow-xl rounded-3xl p-6 w-64 text-center transition-all"
@@ -57,7 +53,7 @@ export default function CategoryCard({
           ${price.toFixed(2)}
         </div>
 
-        <button className="bg-green-500 hover:bg-[#f9f9f9] transition-colors duration-300 ease-in-out text-white hover:text-black border border-green-500 hover:border-black py-1.5 px-4 rounded-full">
+        <button className="bg-green-500 hover:bg-[#f9f9f9] transition-colors duration-300 ease-in-out text-white hover:text-black border border-green-500 hover:border-black py-1.5 px-4 rounded-full cursor-pointer">
           Buy Now
         </button>
       </div>

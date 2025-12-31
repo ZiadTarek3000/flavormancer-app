@@ -94,6 +94,7 @@ export default function RegularFoodCards({
           hover:bg-white
           hover:text-black
           hover:border-black
+          cursor-pointer
         ">
           Buy Now
         </button>

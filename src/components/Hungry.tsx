@@ -87,6 +87,7 @@ function Hungry() {
         text-white hover:text-black
         hover:border hover:border-black
         py-2 px-8 rounded-full
+        cursor-pointer
       "
           >
             Order Now
@@ -100,7 +101,7 @@ function Hungry() {
         hover:bg-green-500 hover:border-0 hover:text-white
         transition-colors duration-300
         text-black py-2 px-8 rounded-full
-        flex items-center gap-2
+        flex items-center gap-2 cursor-pointer
       "
           >
             Explore More <MoveRight size={18} />

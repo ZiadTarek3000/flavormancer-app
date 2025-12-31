@@ -108,7 +108,7 @@ const Footer = () => {
               {section.items && (
                 <ul className="space-y-2 text-gray-700">
                   {section.items.map((item, idx) => (
-                    <li key={idx}>{item}</li>
+                    <li key={idx} className="cursor-pointer">{item}</li>
                   ))}
                 </ul>
               )}
@@ -129,7 +129,7 @@ const Footer = () => {
                     className="
                       bg-[#7bbf5a] text-white px-6 py-2.5
                       rounded-lg hover:bg-[#6aac4f]
-                      transition whitespace-nowrap
+                      transition whitespace-nowrap cursor-pointer
                     "
                   >
                     Subscribe

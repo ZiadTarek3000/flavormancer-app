@@ -25,7 +25,7 @@ export default function ChooseUs() {
   ]
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 text-center flex flex-col gap-6 sm:gap-8">
+    <section className="py-8 sm:py-10 lg:py-15 text-center flex flex-col gap-6 sm:gap-8">
       {/* Section Title */}
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
