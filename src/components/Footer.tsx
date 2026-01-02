@@ -32,7 +32,7 @@ const Footer = () => {
   const controls = useAnimationControls();
 
   const isInView = useInView(ref, {
-    margin: "-80px", 
+    margin: "-80px",
   });
 
   const isDesktop =
@@ -42,9 +42,39 @@ const Footer = () => {
     if (isInView) {
       controls.start("visible");
     } else {
-      controls.start("hidden"); 
+      controls.start("hidden");
     }
   }, [isInView, controls]);
+
+  const footerSections = [
+    {
+      title: "Menu",
+      items: [
+        { label: "Home", target: "home" },
+        { label: "Why Choose", target: "why-choose" },
+        { label: "Special Menu", target: "special-menu" },
+        { label: "Regular Food", target: "regular-food" },
+        { label: "Special Chef’s", target: "special-chefs" },
+      ],
+      isMenu: true,
+    },
+    {
+      title: "Help",
+      items: ["Privacy", "Terms & Condition", "Policy"],
+    },
+    {
+      title: "Contact",
+      items: [
+        "+123 456 789",
+        "Info@Foodied.Com",
+        "1245, New York, USA",
+      ],
+    },
+    {
+      title: "Subscribe Our Newsletter",
+      newsletter: true,
+    },
+  ];
 
   return (
     <motion.footer
@@ -52,6 +82,7 @@ const Footer = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
+      id="footer"
       className="bg-[#eaf5df] w-full mt-16"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-12">
@@ -59,42 +90,9 @@ const Footer = () => {
           variants={containerVariants}
           initial="hidden"
           animate={controls}
-          className="
-            grid
-            gap-10
-            grid-cols-1
-            sm:grid-cols-2
-            lg:grid-cols-4
-          "
+          className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
         >
-          {[
-            {
-              title: "Menu",
-              items: [
-                "Home",
-                "Why Choose",
-                "Special Menu",
-                "Regular Food",
-                "Special Chef’s",
-              ],
-            },
-            {
-              title: "Help",
-              items: ["Privacy", "Terms & Condition", "Policy"],
-            },
-            {
-              title: "Contact",
-              items: [
-                "+123 456 789",
-                "Info@Foodied.Com",
-                "1245, New York, USA",
-              ],
-            },
-            {
-              title: "Subscribe Our Newsletter",
-              newsletter: true,
-            },
-          ].map((section, i) => (
+          {footerSections.map((section, i) => (
             <motion.div
               key={i}
               custom={isDesktop}
@@ -107,9 +105,25 @@ const Footer = () => {
 
               {section.items && (
                 <ul className="space-y-2 text-gray-700">
-                  {section.items.map((item, idx) => (
-                    <li key={idx} className="cursor-pointer">{item}</li>
-                  ))}
+                  {section.items.map((item, idx) => {
+                    // Menu items (scroll)
+                    if (section.isMenu) {
+                      return (
+                        <li
+                          key={idx}
+                          className="cursor-pointer hover:text-[#7bbf5a] transition"
+                          onClick={() => {
+                            const el = document.getElementById(item.target);
+                            el?.scrollIntoView({ behavior: "smooth" });
+                          }}
+                        >
+                          {item.label}
+                        </li>
+                      );
+                    }
+
+                    return <li key={idx} className="cursor-pointer">{item}</li>;
+                  })}
                 </ul>
               )}
 
@@ -118,19 +132,13 @@ const Footer = () => {
                   <input
                     type="email"
                     placeholder="Enter email"
-                    className="
-                      w-full px-4 py-2.5 rounded-lg border
-                      border-gray-300 bg-white text-gray-800
-                      focus:outline-none focus:border-[#7bbf5a]
-                      focus:ring-2 focus:ring-[#7bbf5a]/30
-                    "
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-800
+                    focus:outline-none focus:border-[#7bbf5a]
+                    focus:ring-2 focus:ring-[#7bbf5a]/30"
                   />
                   <button
-                    className="
-                      bg-[#7bbf5a] text-white px-6 py-2.5
-                      rounded-lg hover:bg-[#6aac4f]
-                      transition whitespace-nowrap cursor-pointer
-                    "
+                    className="bg-[#7bbf5a] text-white px-6 py-2.5 rounded-lg
+                    hover:bg-[#6aac4f] transition whitespace-nowrap cursor-pointer"
                   >
                     Subscribe
                   </button>

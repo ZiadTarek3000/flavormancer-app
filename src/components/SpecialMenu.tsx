@@ -30,6 +30,7 @@ export default function SpecialMenu() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
+        id='special-menu'
         className="font-bold text-black
           text-2xl
           sm:text-3xl

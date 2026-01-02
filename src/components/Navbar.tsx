@@ -1,13 +1,39 @@
-import { ShoppingBag, Search, Menu, X } from "lucide-react"
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { ShoppingBag, Search, Menu, X } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 function Navbar() {
-  const [active, setActive] = useState("Home")
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [active, setActive] = useState("home");
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const items = ["Home", "Menu", "About Us", "Contact"]
-  const extraMobileItems = ["Search", "Cart", "Sign Up"]
+  const items = [
+    { label: "Home", id: "home" },
+    { label: "Menu", id: "special-menu" },
+    { label: "Choose Us", id: "why-choose" },
+    { label: "Contact", id: "footer" },
+  ];
+
+  const extraMobileItems = ["Search", "Cart", "Sign Up"];
+
+  const handleScroll = (id) => {
+    const section = document.getElementById(id);
+    if (!section) return;
+
+    const navHeight = document.querySelector("nav")?.offsetHeight || 0;
+    const y =
+      section.getBoundingClientRect().top +
+      window.pageYOffset -
+      navHeight -
+      8;
+
+    window.scrollTo({
+      top: y,
+      behavior: "smooth",
+    });
+
+    setActive(id);
+    setMenuOpen(false);
+  };
 
   return (
     <motion.nav
@@ -17,10 +43,10 @@ function Navbar() {
       className="w-full relative z-50"
     >
       <div className="container mx-auto px-4 flex justify-between items-center py-3">
-
         {/* Logo */}
         <motion.h2
           whileHover={{ scale: 1.05 }}
+          onClick={() => handleScroll("home")}
           className="font-bold text-black text-xl sm:text-2xl lg:text-3xl cursor-pointer"
         >
           FLAVORMANCER
@@ -30,20 +56,22 @@ function Navbar() {
         <ul className="hidden lg:flex gap-4 xl:gap-6 2xl:gap-10 font-bold">
           {items.map((item) => (
             <motion.li
-              key={item}
-              onMouseEnter={() => setActive(item)}
-              onMouseLeave={() => setActive("Home")}
+              key={item.id}
+              onClick={() => handleScroll(item.id)}
+              onMouseEnter={() => setActive(item.id)}
+              onMouseLeave={() => setActive("home")}
               whileHover={{ y: -2 }}
-              className={`relative cursor-pointer transition-colors
-                ${active === item ? "text-blue-600" : "text-black"}
+              className={`
+                relative cursor-pointer transition-colors
+                ${active === item.id ? "text-blue-600" : "text-black"}
               `}
             >
-              {item}
+              {item.label}
               <span
                 className={`
                   absolute left-0 -bottom-1 h-0.5 bg-blue-600
                   transition-all duration-300
-                  ${active === item ? "w-full" : "w-0"}
+                  ${active === item.id ? "w-full" : "w-0"}
                 `}
               />
             </motion.li>
@@ -52,7 +80,6 @@ function Navbar() {
 
         {/* Actions */}
         <div className="flex items-center gap-2 sm:gap-3">
-
           {[Search, ShoppingBag].map((Icon, i) => (
             <motion.div
               key={i}
@@ -72,8 +99,7 @@ function Navbar() {
               bg-green-500 text-white
               hover:bg-[#f9f9f9] hover:text-black hover:border hover:border-black
               transition-colors
-              text-sm
-              py-2 px-4
+              text-sm py-2 px-4
               rounded-full
               cursor-pointer
             "
@@ -114,24 +140,20 @@ function Navbar() {
                 font-bold
               "
             >
-              {/* Main mobile links */}
               {items.map((item, index) => (
                 <motion.li
-                  key={item}
+                  key={item.id}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  onClick={() => {
-                    setActive(item)
-                    setMenuOpen(false)
-                  }}
+                  onClick={() => handleScroll(item.id)}
                   className="cursor-pointer hover:text-green-600"
                 >
-                  {item}
+                  {item.label}
                 </motion.li>
               ))}
 
-              {/* Extra mobile items (sm only) */}
+              {/* ❌ زي ما هي بدون ربط */}
               {extraMobileItems.map((item, index) => (
                 <motion.li
                   key={item}
@@ -150,8 +172,8 @@ function Navbar() {
         )}
       </AnimatePresence>
     </motion.nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
 

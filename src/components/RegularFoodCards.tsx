@@ -81,23 +81,6 @@ export default function RegularFoodCards({
         <span className="px-4 py-1 border border-gray-600 rounded-full font-semibold text-sm">
           ${price.toFixed(2)}
         </span>
-        <button className="
-          bg-green-500
-          text-white
-          border
-          border-green-500
-          px-4
-          py-1.5
-          rounded-full
-          text-sm
-          transition
-          hover:bg-white
-          hover:text-black
-          hover:border-black
-          cursor-pointer
-        ">
-          Buy Now
-        </button>
       </div>
     </motion.div>
   );

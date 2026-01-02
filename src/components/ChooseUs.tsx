@@ -32,6 +32,7 @@ export default function ChooseUs() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
+        id='why-choose'
         className="
           font-bold text-black
           text-2xl

@@ -52,10 +52,6 @@ export default function CategoryCard({
         <div className="px-4 py-1.5 border border-gray-600 rounded-full font-semibold text-sm">
           ${price.toFixed(2)}
         </div>
-
-        <button className="bg-green-500 hover:bg-[#f9f9f9] transition-colors duration-300 ease-in-out text-white hover:text-black border border-green-500 hover:border-black py-1.5 px-4 rounded-full cursor-pointer">
-          Buy Now
-        </button>
       </div>
     </motion.div>
   );
