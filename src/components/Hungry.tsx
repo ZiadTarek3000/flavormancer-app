@@ -83,17 +83,21 @@ function Hungry() {
           variants={buttonVariants}
           className="flex gap-4 justify-center lg:justify-start"
         >
-
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              document
+                .getElementById("special-menu")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
             className="
-              bg-[#f9f9f9] border border-black
-              hover:bg-green-500 hover:border-0 hover:text-white
-              transition-colors duration-300
-              text-black py-2 px-8 rounded-full
-              flex items-center gap-2
-            "
+    bg-[#f9f9f9] border border-black
+    hover:bg-green-500 hover:border-0 hover:text-white
+    transition-colors duration-300
+    text-black py-2 px-8 rounded-full
+    flex items-center gap-2
+  "
           >
             Explore More <MoveRight size={18} />
           </motion.button>
@@ -165,4 +169,3 @@ function Hungry() {
 }
 
 export default Hungry;
-

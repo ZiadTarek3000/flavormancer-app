@@ -31,7 +31,7 @@ export default function SpecialMenuCards({
       opacity: 1,
       x: 0,
       y: 0,
-      transition: { duration: 0.6 }, 
+      transition: { duration: 0.6 },
     },
   };
 
@@ -39,6 +39,15 @@ export default function SpecialMenuCards({
     <motion.div
       initial="hidden"
       whileInView="visible"
+      whileHover={{
+        y: -12,        
+        scale: 1.05,   
+        transition: {
+          type: "spring",
+          stiffness: 300,
+          damping: 20,
+        },
+      }}
       viewport={{ once: true }}
       variants={variants}
       className="
@@ -53,10 +62,6 @@ export default function SpecialMenuCards({
         flex-col
         justify-end
         overflow-visible
-        transition-all
-        duration-300
-        hover:-translate-y-1
-        hover:shadow-xl
       "
     >
       {/* Image */}
@@ -130,5 +135,6 @@ export default function SpecialMenuCards({
     </motion.div>
   );
 }
+
 
 

@@ -40,6 +40,7 @@ function Navbar() {
       initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
+      id="home"
       className="w-full relative z-50"
     >
       <div className="container mx-auto px-4 flex justify-between items-center py-3">
@@ -153,7 +154,7 @@ function Navbar() {
                 </motion.li>
               ))}
 
-              {/* ❌ زي ما هي بدون ربط */}
+            
               {extraMobileItems.map((item, index) => (
                 <motion.li
                   key={item}

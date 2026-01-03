@@ -49,7 +49,8 @@ export default function CategoryCard({
 
       {/* Price + Button */}
       <div className="flex justify-center items-center gap-4 mt-5">
-        <div className="px-4 py-1.5 border border-gray-600 rounded-full font-semibold text-sm">
+        <div className="px-4 py-1.5 border border-gray-600 rounded-full font-semibold text-sm hover:bg-green-500 hover:border-0 hover:text-white
+              transition-colors duration-300 cursor-pointer">
           ${price.toFixed(2)}
         </div>
       </div>
