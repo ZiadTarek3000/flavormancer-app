@@ -1,15 +1,14 @@
 # Flavormancer 🍽️
 
-Flavormancer is a full-stack **recipes recommendation web application** that provides users with curated recipe suggestions through a modern and responsive user interface.
-
-The project started as a frontend-only application and later evolved into a full-stack app with backend integration.
+Flavormancer is a modern, fully responsive restaurant landing page designed to showcase a restaurant’s identity, menu, and unique offerings in an elegant and interactive way.
+Built with clean design principles and smooth animations, it provides visitors with a visually appealing experience that reflects the restaurant’s atmosphere and style.
 
 ---
 
 ## 🚀 Tech Stack
 
 ### Frontend
-- React
+- React 
 - Vite
 - Tailwind CSS
 - Responsive Design
@@ -25,12 +24,11 @@ The project started as a frontend-only application and later evolved into a full
 ---
 
 ## ✨ Features
-
-- Recipe recommendations
-- Full integration between frontend and backend
-- RESTful API
-- Responsive design (mobile, tablet, desktop)
-- Clean and modern UI
+- Fully responsive design (mobile, tablet, desktop)
+- Smooth and modern scroll-based animations
+- Interactive sections (menu, chefs, testimonials, contact, etc.)
+- Clean, minimalistic, and elegant UI
+- Fast performance and optimized assets
 - Scalable project structure
 
 ---
