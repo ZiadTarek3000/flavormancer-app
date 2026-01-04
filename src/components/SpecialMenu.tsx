@@ -1,5 +1,5 @@
 import SpecialMenuCards from "./SpecialMenuCards";
-import { Dot } from "lucide-react";
+import { Dot, LoaderCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
@@ -30,7 +30,7 @@ export default function SpecialMenu() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        id='special-menu'
+        id="special-menu"
         className="font-bold text-black
           text-2xl
           sm:text-3xl
@@ -80,7 +80,9 @@ export default function SpecialMenu() {
             );
           })
         ) : (
-          <p className="col-span-full text-gray-500">Loading special menu...</p>
+          <div className="col-span-full flex justify-center">
+            <LoaderCircle className="w-8 h-8 text-gray-500 animate-spin" />
+          </div>
         )}
       </div>
 

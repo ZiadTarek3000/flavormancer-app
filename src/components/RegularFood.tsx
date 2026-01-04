@@ -1,5 +1,5 @@
 import RegularFoodCards from "./RegularFoodCards";
-import { Dot } from "lucide-react";
+import { Dot, LoaderCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
@@ -85,9 +85,9 @@ export default function RegularFood() {
             />
           ))
         ) : (
-          <p className="col-span-full text-gray-500">
-            Loading regular food...
-          </p>
+          <div className="col-span-full flex justify-center">
+            <LoaderCircle className="w-8 h-8 text-gray-500 animate-spin" />
+          </div>
         )}
       </motion.div>
 

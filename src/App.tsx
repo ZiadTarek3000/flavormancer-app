@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { LoaderCircle } from "lucide-react";
 import "./App.css";
 import CategoryCard from "./components/CategoryCard";
 import Hungry from "./components/Hungry";
@@ -32,7 +33,7 @@ function App() {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.1, 
+        staggerChildren: 0.1,
       },
     },
   };
@@ -62,9 +63,9 @@ function App() {
               />
             ))
           ) : (
-            <p className="w-full text-center text-gray-500">
-              Loading delicious food...
-            </p>
+            <div className="w-full flex justify-center items-center py-10">
+              <LoaderCircle className="w-8 h-8 text-gray-500 animate-spin" />
+            </div>
           )}
         </motion.section>
 
@@ -80,4 +81,3 @@ function App() {
 }
 
 export default App;
-

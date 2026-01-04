@@ -64,13 +64,13 @@ function Navbar() {
               whileHover={{ y: -2 }}
               className={`
                 relative cursor-pointer transition-colors
-                ${active === item.id ? "text-blue-600" : "text-black"}
+                ${active === item.id ? "text-green-500" : "text-black"}
               `}
             >
               {item.label}
               <span
                 className={`
-                  absolute left-0 -bottom-1 h-0.5 bg-blue-600
+                  absolute left-0 -bottom-1 h-0.5 bg-green-500
                   transition-all duration-300
                   ${active === item.id ? "w-full" : "w-0"}
                 `}

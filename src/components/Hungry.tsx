@@ -60,7 +60,7 @@ function Hungry() {
           className="
             font-bold mb-6
             text-2xl sm:text-3xl md:text-4xl
-            lg:text-5xl xl:text-6xl
+            lg:text-5xl xl:text-6xl text-black
           "
         >
           JUST COME TO FLAVORMANCER & ORDER

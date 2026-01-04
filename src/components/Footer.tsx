@@ -51,7 +51,7 @@ const Footer = () => {
       title: "Menu",
       items: [
         { label: "Home", target: "home" },
-        { label: "Why Choose", target: "why-choose" },
+        { label: "Choose Us", target: "why-choose" },
         { label: "Special Menu", target: "special-menu" },
         { label: "Regular Food", target: "regular-food" },
         { label: "Special Chef’s", target: "special-chefs" },
