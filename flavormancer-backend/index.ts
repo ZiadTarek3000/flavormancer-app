@@ -10,24 +10,27 @@ app.use(express.json());
 
 app.get('/categories', async (req, res) => {
   try {
-    const categories = await prisma.category.findMany();
+    const categories = await prisma.Category.findMany();
     res.json(categories);
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch categories" });
+    console.error(error);
+    res.status(500).json({ error: error.message });
   }
 });
 
 app.post('/categories', async (req, res) => {
   try {
     const { img, title, desc, price } = req.body;
-    const newCategory = await prisma.category.create({
+    const newCategory = await prisma.Category.create({
       data: { img, title, desc, price },
     });
     res.json(newCategory);
   } catch (error) {
-    res.status(400).json({ error: "Check your data types" });
+    console.error(error);
+    res.status(400).json({ error: error.message });
   }
 });
+
 
 
 app.get('/menuData', async (req, res) => {
