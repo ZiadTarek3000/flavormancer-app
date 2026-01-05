@@ -5,108 +5,124 @@ import cors from 'cors';
 const prisma = new PrismaClient();
 const app = express();
 
-app.use(cors()); 
-app.use(express.json()); 
+app.use(cors());
+app.use(express.json());
+
+/* ===================== Categories ===================== */
 
 app.get('/categories', async (req, res) => {
   try {
-    const categories = await prisma.Category.findMany();
+    const categories = await prisma.category.findMany();
     res.json(categories);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: 'Failed to fetch categories' });
   }
 });
 
 app.post('/categories', async (req, res) => {
   try {
     const { img, title, desc, price } = req.body;
-    const newCategory = await prisma.Category.create({
+    const newCategory = await prisma.category.create({
       data: { img, title, desc, price },
     });
     res.json(newCategory);
   } catch (error) {
     console.error(error);
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ error: 'Invalid category data' });
   }
 });
 
-
+/* ===================== Special Menu ===================== */
 
 app.get('/menuData', async (req, res) => {
   try {
-    const menuData = await prisma.SpecialMenuCard.findMany();
+    const menuData = await prisma.specialMenuCard.findMany();
     res.json(menuData);
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch menuData" });
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch menuData' });
   }
 });
 
 app.post('/menuData', async (req, res) => {
   try {
     const { img, title, price, rating, reviews } = req.body;
-    const newItem = await prisma.SpecialMenuCard.create({
+    const newItem = await prisma.specialMenuCard.create({
       data: { img, title, price, rating, reviews },
     });
     res.json(newItem);
   } catch (error) {
-    res.status(400).json({ error: "Invalid data" });
+    console.error(error);
+    res.status(400).json({ error: 'Invalid menu item data' });
   }
 });
 
+/* ===================== Regular Food ===================== */
 
 app.get('/regularFood', async (req, res) => {
   try {
-    const regularFood = await prisma.RegularFoodCard.findMany();
+    const regularFood = await prisma.regularFoodCard.findMany();
     res.json(regularFood);
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch regularFood" });
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch regular food' });
   }
 });
 
 app.post('/regularFood', async (req, res) => {
   try {
     const { img, title, desc, price, rating, reviews } = req.body;
-    const newItem = await prisma.RegularFoodCard.create({
+    const newItem = await prisma.regularFoodCard.create({
       data: { img, title, desc, price, rating, reviews },
     });
     res.json(newItem);
   } catch (error) {
-    res.status(400).json({ error: "Invalid data" });
+    console.error(error);
+    res.status(400).json({ error: 'Invalid regular food data' });
   }
 });
 
+/* ===================== Chefs ===================== */
 
 app.get('/chefs', async (req, res) => {
   try {
     const chefs = await prisma.chef.findMany();
     res.json(chefs);
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch chefs" });
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch chefs' });
   }
 });
-
 
 app.post('/chefs', async (req, res) => {
   try {
     const { img, offset } = req.body;
-
     const newChef = await prisma.chef.create({
       data: {
         img,
         offset: offset ?? false,
       },
     });
-
     res.json(newChef);
   } catch (error) {
-    res.status(400).json({ error: "Invalid chef data" });
+    console.error(error);
+    res.status(400).json({ error: 'Invalid chef data' });
   }
 });
 
+/* ===================== Server ===================== */
 
+const PORT = process.env.PORT || 3000;
 
-const PORT = 3001;
 app.listen(PORT, () => {
-  console.log(`✅ Server is running on: http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
+
+/* ===================== Graceful Shutdown ===================== */
+
+process.on('SIGTERM', async () => {
+  await prisma.$disconnect();
+  process.exit(0);
+});
+

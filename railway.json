@@ -1,0 +1,10 @@
+{
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "cd flavormancer-backend && npm install && npx prisma generate && npm run build"
+  },
+  "deploy": {
+    "startCommand": "cd flavormancer-backend && npx prisma db push && npm run start"
+  }
+}
+
