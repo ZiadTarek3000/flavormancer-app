@@ -12,7 +12,7 @@ export default function SpecialChefs() {
   const [chefs, setChefs] = useState<ChefData[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/chefs")
+    fetch("https://flavormancer-app-production.up.railway.app/chefs")
       .then((res) => res.json())
       .then((data) => setChefs(data))
       .catch((err) =>

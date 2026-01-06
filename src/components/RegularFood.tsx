@@ -17,7 +17,7 @@ export default function RegularFood() {
   const [regularFood, setRegularFood] = useState<RegularFoodCardData[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/regularFood")
+    fetch("https://flavormancer-app-production.up.railway.app/regularFood")
       .then((res) => res.json())
       .then((data) => setRegularFood(data))
       .catch((err) =>

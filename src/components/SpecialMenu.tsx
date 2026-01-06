@@ -16,7 +16,7 @@ export default function SpecialMenu() {
   const [menuData, setMenuData] = useState<SpecialMenuCardData[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/menuData")
+    fetch("https://flavormancer-app-production.up.railway.app/menuData")
       .then((res) => res.json())
       .then((data) => setMenuData(data))
       .catch((err) => console.error("Error fetching menuData:", err));
