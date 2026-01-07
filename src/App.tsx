@@ -23,7 +23,7 @@ function App() {
   const [categories, setCategories] = useState<CategoryData[]>([]);
 
   useEffect(() => {
-    fetch("https://flavormancer-app-production.up.railway.app/categories")
+    fetch(`${import.meta.env.VITE_API_URL}/categories`)
       .then((res) => res.json())
       .then((data) => setCategories(data))
       .catch((err) => console.error("Error fetching categories:", err));
