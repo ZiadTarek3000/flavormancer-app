@@ -1,109 +1,32 @@
-import RegularFoodCards from "./RegularFoodCards";
-import { Dot, LoaderCircle } from "lucide-react";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-
-interface RegularFoodCardData {
-  id: number;
-  img: string;
-  title: string;
-  desc: string;
-  price: number;
-  rating: number;
-  reviews: number;
-}
+import { regularFood } from "../data";
+import SectionHeading from "./SectionHeading";
+import DishCard from "./DishCard";
 
 export default function RegularFood() {
-  const [regularFood, setRegularFood] = useState<RegularFoodCardData[]>([]);
-
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/regularFood`)
-      .then((res) => res.json())
-      .then((data) => setRegularFood(data))
-      .catch((err) =>
-        console.error("Error fetching regularFood:", err)
-      );
-  }, []);
-
-  const gridVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
   return (
-    <motion.section
-      className="py-10 flex flex-col gap-12 text-center"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+    <section
       id="regular-food"
+      className="relative overflow-hidden py-20 lg:py-24"
     >
-      {/* Title */}
-      <motion.h2
-        className="font-bold text-black
-          text-2xl
-          sm:text-3xl
-          lg:text-4xl"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        OUR REGULAR FOOD
-      </motion.h2>
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute right-0 top-1/4 h-80 w-80 rounded-full bg-spice-400/20 blur-3xl" />
+        <div className="absolute left-0 bottom-0 h-72 w-72 rounded-full bg-brand-300/30 blur-3xl" />
+      </div>
 
-      <motion.p
-        className="max-w-xl mx-auto text-gray-500"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-      >
-        This is our daily food list. Here you will find all kinds of food.
-        Choose your favorite food and order.
-      </motion.p>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          eyebrow="Everyday favorites"
+          title="Our regular"
+          highlight="daily menu"
+          subtitle="Honest, hearty meals priced for every day — because great food shouldn't be reserved for special occasions."
+        />
 
-      {/* Cards Grid */}
-      <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 justify-items-center mt-12"
-        variants={gridVariants}
-      >
-        {regularFood.length > 0 ? (
-          regularFood.map((item) => (
-            <RegularFoodCards
-              key={item.id}
-              img={item.img}
-              title={item.title}
-              desc={item.desc}
-              price={item.price}
-              rating={item.rating}
-              reviews={item.reviews}
-            />
-          ))
-        ) : (
-          <div className="col-span-full flex justify-center">
-            <LoaderCircle className="w-8 h-8 text-gray-500 animate-spin" />
-          </div>
-        )}
-      </motion.div>
-
-      {/* Dots */}
-      <motion.div
-        className="flex items-center justify-center gap-2 mt-8"
-        initial={{ y: 20, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-      >
-        <Dot className="text-green-500 w-8 h-8" />
-        <Dot className="text-gray-400 w-8 h-8" />
-        <Dot className="text-gray-400 w-8 h-8" />
-        <Dot className="text-gray-400 w-8 h-8" />
-      </motion.div>
-    </motion.section>
+        <div className="mt-14 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
+          {regularFood.map((item, i) => (
+            <DishCard key={item.id} item={item} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
-

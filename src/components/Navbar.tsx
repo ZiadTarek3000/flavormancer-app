@@ -1,173 +1,160 @@
-import { ShoppingBag, Search, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { ShoppingBag, Search, Menu, X, Sparkles } from "lucide-react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-function Navbar() {
+const links = [
+  { label: "Home", id: "home" },
+  { label: "Menu", id: "special-menu" },
+  { label: "Why Us", id: "why-choose" },
+  { label: "Chefs", id: "chefs" },
+  { label: "Reviews", id: "testimonials" },
+];
+
+export default function Navbar() {
   const [active, setActive] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const items = [
-    { label: "Home", id: "home" },
-    { label: "Menu", id: "special-menu" },
-    { label: "Choose Us", id: "why-choose" },
-    { label: "Contact", id: "footer" },
-  ];
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  const extraMobileItems = ["Search", "Cart", "Sign Up"];
-
-  const handleScroll = (id) => {
+  const handleScroll = (id: string) => {
     const section = document.getElementById(id);
     if (!section) return;
-
-    const navHeight = document.querySelector("nav")?.offsetHeight || 0;
+    const navHeight = document.querySelector("nav")?.offsetHeight ?? 0;
     const y =
       section.getBoundingClientRect().top +
       window.pageYOffset -
       navHeight -
-      8;
-
-    window.scrollTo({
-      top: y,
-      behavior: "smooth",
-    });
-
+      12;
+    window.scrollTo({ top: y, behavior: "smooth" });
     setActive(id);
     setMenuOpen(false);
   };
 
   return (
     <motion.nav
-      initial={{ y: -40, opacity: 0 }}
+      initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       id="home"
-      className="w-full relative z-50"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "glass border-b border-brand-100 shadow-[0_8px_30px_-18px_rgba(15,29,23,0.4)]"
+          : "bg-transparent"
+      }`}
     >
-      <div className="container mx-auto px-4 flex justify-between items-center py-3">
-        {/* Logo */}
-        <motion.h2
-          whileHover={{ scale: 1.05 }}
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+        <motion.button
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.97 }}
           onClick={() => handleScroll("home")}
-          className="font-bold text-black text-xl sm:text-2xl lg:text-3xl cursor-pointer"
+          className="flex items-center gap-2 font-display text-xl font-bold tracking-tight text-ink sm:text-2xl"
         >
-          FLAVORMANCER
-        </motion.h2>
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-glow">
+            <Sparkles className="h-5 w-5" />
+          </span>
+          Flavormancer
+        </motion.button>
 
-        {/* Desktop Links */}
-        <ul className="hidden lg:flex gap-4 xl:gap-6 2xl:gap-10 font-bold">
-          {items.map((item) => (
-            <motion.li
-              key={item.id}
-              onClick={() => handleScroll(item.id)}
-              onMouseEnter={() => setActive(item.id)}
-              onMouseLeave={() => setActive("home")}
-              whileHover={{ y: -2 }}
-              className={`
-                relative cursor-pointer transition-colors
-                ${active === item.id ? "text-green-500" : "text-black"}
-              `}
-            >
-              {item.label}
-              <span
-                className={`
-                  absolute left-0 -bottom-1 h-0.5 bg-green-500
-                  transition-all duration-300
-                  ${active === item.id ? "w-full" : "w-0"}
-                `}
-              />
-            </motion.li>
+        <ul className="hidden items-center gap-1 lg:flex">
+          {links.map((item) => (
+            <li key={item.id}>
+              <button
+                onClick={() => handleScroll(item.id)}
+                onMouseEnter={() => setActive(item.id)}
+                className={`relative rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                  active === item.id
+                    ? "text-brand-700"
+                    : "text-ink/70 hover:text-ink"
+                }`}
+              >
+                {active === item.id && (
+                  <motion.span
+                    layoutId="nav-pill"
+                    className="absolute inset-0 -z-10 rounded-full bg-brand-50"
+                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                  />
+                )}
+                {item.label}
+              </button>
+            </li>
           ))}
         </ul>
 
-        {/* Actions */}
         <div className="flex items-center gap-2 sm:gap-3">
           {[Search, ShoppingBag].map((Icon, i) => (
-            <motion.div
+            <motion.button
               key={i}
-              whileHover={{ scale: 1.15 }}
+              whileHover={{ scale: 1.12, rotate: i === 1 ? -6 : 0 }}
               whileTap={{ scale: 0.9 }}
-              className="p-2 rounded-full bg-green-500 hidden sm:flex cursor-pointer"
+              className="hidden h-10 w-10 items-center justify-center rounded-full border border-brand-100 bg-white/70 text-ink shadow-sm transition-colors hover:border-brand-300 hover:text-brand-600 sm:flex"
             >
-              <Icon className="text-white w-4 h-4" />
-            </motion.div>
+              <Icon className="h-4 w-4" />
+            </motion.button>
           ))}
 
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="
-              hidden sm:block
-              bg-green-500 text-white
-              hover:bg-[#f9f9f9] hover:text-black hover:border hover:border-black
-              transition-colors
-              text-sm py-2 px-4
-              rounded-full
-              cursor-pointer
-            "
+            onClick={() => handleScroll("special-menu")}
+            className="hidden rounded-full bg-gradient-to-r from-brand-500 to-brand-700 px-5 py-2.5 text-sm font-semibold text-white shadow-glow transition-shadow hover:shadow-[0_18px_40px_-12px_rgba(3,152,85,0.7)] sm:block"
           >
-            Sign Up
+            Order Now
           </motion.button>
 
           <motion.button
-            onClick={() => setMenuOpen(!menuOpen)}
+            onClick={() => setMenuOpen((v) => !v)}
             whileTap={{ scale: 0.9 }}
-            className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition cursor-pointer"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-brand-100 bg-white/70 text-ink lg:hidden"
           >
-            {menuOpen ? <X /> : <Menu />}
+            {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </motion.button>
         </div>
       </div>
 
-      {/* ===== Mobile Menu ===== */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="
-              lg:hidden
-              absolute top-full left-0 w-full
-              bg-white shadow-lg border-t
-              z-50
-            "
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="overflow-hidden border-t border-brand-100 glass lg:hidden"
           >
-            <ul
-              className="
-                container mx-auto
-                px-6 py-4
-                flex flex-col gap-4
-                font-bold
-              "
-            >
-              {items.map((item, index) => (
+            <ul className="flex flex-col gap-1 px-5 py-4">
+              {links.map((item, index) => (
                 <motion.li
                   key={item.id}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  onClick={() => handleScroll(item.id)}
-                  className="cursor-pointer hover:text-green-600"
                 >
-                  {item.label}
+                  <button
+                    onClick={() => handleScroll(item.id)}
+                    className="w-full rounded-xl px-4 py-3 text-left text-base font-semibold text-ink/80 transition-colors hover:bg-brand-50 hover:text-brand-700"
+                  >
+                    {item.label}
+                  </button>
                 </motion.li>
               ))}
-
-            
-              {extraMobileItems.map((item, index) => (
-                <motion.li
-                  key={item}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    delay: (items.length + index) * 0.05,
-                  }}
-                  className="sm:hidden cursor-pointer hover:text-green-600"
+              <motion.li
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: links.length * 0.05 }}
+                className="mt-2"
+              >
+                <button
+                  onClick={() => handleScroll("special-menu")}
+                  className="w-full rounded-xl bg-gradient-to-r from-brand-500 to-brand-700 px-4 py-3 text-center text-base font-semibold text-white shadow-glow"
                 >
-                  {item}
-                </motion.li>
-              ))}
+                  Order Now
+                </button>
+              </motion.li>
             </ul>
           </motion.div>
         )}
@@ -175,6 +162,3 @@ function Navbar() {
     </motion.nav>
   );
 }
-
-export default Navbar;
-

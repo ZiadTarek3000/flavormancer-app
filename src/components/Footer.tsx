@@ -1,171 +1,172 @@
-import { motion, useAnimationControls, useInView } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  Sparkles,
+  Instagram,
+  Facebook,
+  Twitter,
+  Youtube,
+  MapPin,
+  Mail,
+  Phone,
+  Send,
+} from "lucide-react";
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
+const menuLinks = [
+  { label: "Home", target: "home" },
+  { label: "Categories", target: "categories" },
+  { label: "Special Menu", target: "special-menu" },
+  { label: "Regular Food", target: "regular-food" },
+  { label: "Our Chefs", target: "chefs" },
+];
 
-const itemVariants = {
-  hidden: (isDesktop) => ({
-    opacity: 0,
-    x: isDesktop ? -40 : 0,
-    y: isDesktop ? 0 : 30,
-  }),
-  visible: {
-    opacity: 1,
-    x: 0,
-    y: 0,
-    transition: {
-      duration: 0.45,
-      ease: "easeOut",
-    },
-  },
-};
+const helpLinks = ["Privacy Policy", "Terms & Conditions", "FAQ", "Support"];
 
-const Footer = () => {
-  const ref = useRef(null);
-  const controls = useAnimationControls();
+const socials = [Instagram, Facebook, Twitter, Youtube];
 
-  const isInView = useInView(ref, {
-    margin: "-80px",
-  });
+export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
 
-  const isDesktop =
-    typeof window !== "undefined" && window.innerWidth >= 1024;
+  const scrollTo = (id: string) =>
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
-  useEffect(() => {
-    if (isInView) {
-      controls.start("visible");
-    } else {
-      controls.start("hidden");
-    }
-  }, [isInView, controls]);
-
-  const footerSections = [
-    {
-      title: "Menu",
-      items: [
-        { label: "Home", target: "home" },
-        { label: "Choose Us", target: "why-choose" },
-        { label: "Special Menu", target: "special-menu" },
-        { label: "Regular Food", target: "regular-food" },
-        { label: "Special Chef’s", target: "special-chefs" },
-      ],
-      isMenu: true,
-    },
-    {
-      title: "Help",
-      items: ["Privacy", "Terms & Condition", "Policy"],
-    },
-    {
-      title: "Contact",
-      items: [
-        "+123 456 789",
-        "Info@Foodied.Com",
-        "1245, New York, USA",
-      ],
-    },
-    {
-      title: "Subscribe Our Newsletter",
-      newsletter: true,
-    },
-  ];
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setSent(true);
+    setEmail("");
+  };
 
   return (
-    <motion.footer
-      ref={ref}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
-      id="footer"
-      className="bg-[#eaf5df] w-full mt-16"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-12">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={controls}
-          className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
-        >
-          {footerSections.map((section, i) => (
-            <motion.div
-              key={i}
-              custom={isDesktop}
-              variants={itemVariants}
-              className="text-center sm:text-left"
-            >
-              <h3 className="text-xl font-semibold mb-4 text-black">
-                {section.title}
-              </h3>
-
-              {section.items && (
-                <ul className="space-y-2 text-gray-700">
-                  {section.items.map((item, idx) => {
-                    // Menu items (scroll)
-                    if (section.isMenu) {
-                      return (
-                        <li
-                          key={idx}
-                          className="cursor-pointer hover:text-[#7bbf5a] transition"
-                          onClick={() => {
-                            const el = document.getElementById(item.target);
-                            el?.scrollIntoView({ behavior: "smooth" });
-                          }}
-                        >
-                          {item.label}
-                        </li>
-                      );
-                    }
-
-                    return <li key={idx} className="cursor-pointer">{item}</li>;
-                  })}
-                </ul>
-              )}
-
-              {section.newsletter && (
-                <div className="flex flex-col sm:flex-row lg:flex-col gap-2">
-                  <input
-                    type="email"
-                    placeholder="Enter email"
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-800
-                    focus:outline-none focus:border-[#7bbf5a]
-                    focus:ring-2 focus:ring-[#7bbf5a]/30"
-                  />
-                  <button
-                    className="bg-[#7bbf5a] text-white px-6 py-2.5 rounded-lg
-                    hover:bg-[#6aac4f] transition whitespace-nowrap cursor-pointer"
-                  >
-                    Subscribe
-                  </button>
-                </div>
-              )}
-            </motion.div>
-          ))}
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={controls}
-          transition={{ delay: 0.6 }}
-          className="mt-10 text-center text-sm text-gray-600"
-        >
-          © 2025 Foodied. All rights reserved.
-        </motion.div>
+    <footer id="footer" className="relative overflow-hidden bg-ink pt-20">
+      <div className="pointer-events-none absolute inset-0 opacity-20">
+        <div className="absolute left-1/4 top-0 h-72 w-72 rounded-full bg-brand-500/40 blur-3xl" />
       </div>
-    </motion.footer>
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-12 pb-14 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="lg:col-span-2">
+            <div className="flex items-center gap-2 font-display text-2xl font-bold text-cream">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white">
+                <Sparkles className="h-5 w-5" />
+              </span>
+              Flavormancer
+            </div>
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-cream/55">
+              Handcrafted dishes from world-class chefs, delivered fresh and
+              fast. Taste the magic in every bite — one order at a time.
+            </p>
+
+            <div className="mt-6 space-y-3 text-sm text-cream/60">
+              <p className="flex items-center gap-3">
+                <MapPin className="h-4 w-4 text-brand-400" />
+                1245 Flavor Street, New York, USA
+              </p>
+              <p className="flex items-center gap-3">
+                <Mail className="h-4 w-4 text-brand-400" />
+                hello@flavormancer.com
+              </p>
+              <p className="flex items-center gap-3">
+                <Phone className="h-4 w-4 text-brand-400" />
+                +123 456 789
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="font-display text-lg font-semibold text-cream">
+              Explore
+            </h3>
+            <ul className="mt-5 space-y-3 text-sm text-cream/60">
+              {menuLinks.map((item) => (
+                <li key={item.target}>
+                  <button
+                    onClick={() => scrollTo(item.target)}
+                    className="transition-colors hover:text-brand-300"
+                  >
+                    {item.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-display text-lg font-semibold text-cream">
+              Help
+            </h3>
+            <ul className="mt-5 space-y-3 text-sm text-cream/60">
+              {helpLinks.map((item) => (
+                <li key={item}>
+                  <a href="#" className="transition-colors hover:text-brand-300">
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-display text-lg font-semibold text-cream">
+              Stay in the loop
+            </h3>
+            <p className="mt-5 text-sm text-cream/55">
+              Get exclusive offers and fresh menu drops straight to your inbox.
+            </p>
+            <form onSubmit={handleSubscribe} className="mt-4">
+              <div className="flex items-center gap-2 rounded-full border border-white/15 bg-white/5 p-1.5 focus-within:border-brand-400">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    setSent(false);
+                  }}
+                  placeholder="Your email"
+                  className="w-full bg-transparent px-3 py-1.5 text-sm text-cream placeholder:text-cream/40 focus:outline-none"
+                />
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.92 }}
+                  type="submit"
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-brand-500 to-brand-700 text-white"
+                  aria-label="Subscribe"
+                >
+                  <Send className="h-4 w-4" />
+                </motion.button>
+              </div>
+              {sent && (
+                <motion.p
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-2 text-xs font-medium text-brand-300"
+                >
+                  You're in! Watch your inbox for tasty news.
+                </motion.p>
+              )}
+            </form>
+
+            <div className="mt-6 flex gap-3">
+              {socials.map((Icon, i) => (
+                <motion.a
+                  key={i}
+                  href="#"
+                  whileHover={{ scale: 1.12, y: -2 }}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-cream/70 transition-colors hover:border-brand-400 hover:text-brand-300"
+                >
+                  <Icon className="h-4 w-4" />
+                </motion.a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 py-7 text-sm text-cream/45 sm:flex-row">
+          <p>© 2026 Flavormancer. All rights reserved.</p>
+          <p>Crafted with care & a pinch of magic.</p>
+        </div>
+      </div>
+    </footer>
   );
-};
-
-export default Footer;
-
-
-
-
-
-
-
+}

@@ -1,49 +1,47 @@
 # Flavormancer 🍽️
 
-Flavormancer is a modern, fully responsive restaurant landing page designed to showcase a restaurant’s identity, menu, and unique offerings in an elegant and interactive way.
-Built with clean design principles and smooth animations, it provides visitors with a visually appealing experience that reflects the restaurant’s atmosphere and style.
+Flavormancer is a modern, fully responsive restaurant landing page designed to showcase a restaurant's identity, menu, and unique offerings in an elegant and interactive way. Built with clean design principles and rich, scroll-based animations, it delivers a polished, premium experience that reflects the restaurant's atmosphere and style.
 
 ---
 
 ## 🚀 Tech Stack
 
-### Frontend
-- React 
+- React 19
 - Vite
-- Tailwind CSS
-- Responsive Design
+- Tailwind CSS v4
+- Framer Motion (animations)
+- Lucide React (icons)
 
-### Backend
-- Node.js
-- Express.js
-- Prisma ORM
-
-### Database
-- SQLite
+All content is powered by **static data** (`src/data.ts`) — no backend, database, or API required. The app is fully static and ready to deploy on Vercel (or any static host).
 
 ---
 
 ## ✨ Features
+
 - Fully responsive design (mobile, tablet, desktop)
-- Smooth and modern scroll-based animations
-- Interactive sections (menu, chefs, testimonials, contact, etc.)
-- Clean, minimalistic, and elegant UI
+- Rich, smooth scroll-based animations and micro-interactions
+- Animated hero with orbiting dishes and floating info badges
+- Sticky glassmorphism navbar with scroll progress bar
+- Animated stat counters, marquee banner, and hover-reveal chef cards
+- Sections: Hero, Categories, Why Choose Us, Special Menu, Regular Food, Chefs, Testimonials, and a call-to-action
+- Clean, elegant UI with a warm, appetizing color palette
 - Fast performance and optimized assets
-- Scalable project structure
 
 ---
 
+## 🛠️ Getting Started
 
-## Architecture
+```bash
+npm install
+npm run dev      # start the dev server
+npm run build    # production build
+npm run preview  # preview the production build
+```
 
-#### Type
-- Component-based React architecture (functional components + hooks, feature/component-level state, custom hooks).
-- No global state library (e.g., Redux) or formal layered architecture (Clean, MVVM) is currently used.
+---
 
-#### Why we chose this
-- Aligns with React's unidirectional data flow and hooks-first patterns.
-- Minimal boilerplate and dependencies → faster iteration and easier onboarding.
-- Easier to reason about, test, and maintain for a small-to-medium app.
-- Scales incrementally — add Context/Redux or adopt a layered/clean architecture later if complexity grows.
+## 🧱 Architecture
 
-
+- Component-based React architecture (functional components + hooks).
+- Static, typed data layer in `src/data.ts` — easy to edit without touching components.
+- No global state library or backend — minimal dependencies, fast iteration, and trivial deployment.

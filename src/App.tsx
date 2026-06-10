@@ -1,83 +1,39 @@
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { LoaderCircle } from "lucide-react";
-import "./App.css";
-import CategoryCard from "./components/CategoryCard";
-import Hungry from "./components/Hungry";
+import ScrollProgress from "./components/ScrollProgress";
 import Navbar from "./components/Navbar";
-import ChooseUs from "./components/ChooseUs";
+import Hero from "./components/Hero";
+import Marquee from "./components/Marquee";
+import Stats from "./components/Stats";
+import Categories from "./components/Categories";
+import WhyChooseUs from "./components/WhyChooseUs";
 import SpecialMenu from "./components/SpecialMenu";
 import RegularFood from "./components/RegularFood";
-import SpecialChefs from "./components/SpecialChefs";
+import Chefs from "./components/Chefs";
+import Testimonials from "./components/Testimonials";
+import CTASection from "./components/CTASection";
 import Footer from "./components/Footer";
 
-interface CategoryData {
-  id: number;
-  img: string;
-  title: string;
-  desc: string;
-  price: number;
-}
-
-function App() {
-  const [categories, setCategories] = useState<CategoryData[]>([]);
-
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/categories`)
-      .then((res) => res.json())
-      .then((data) => setCategories(data))
-      .catch((err) => console.error("Error fetching categories:", err));
-  }, []);
-
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
+export default function App() {
   return (
-    <div className="w-full overflow-hidden">
+    <div className="min-h-screen w-full bg-cream text-ink">
+      <ScrollProgress />
       <Navbar />
 
-      <main className="container mx-auto px-4 flex flex-col gap-12">
-        <Hungry />
-
-        {/* Categories Section */}
-        <motion.section
-          className="w-full flex flex-wrap justify-center lg:justify-between gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {categories.length > 0 ? (
-            categories.map((cat) => (
-              <CategoryCard
-                key={cat.id}
-                img={cat.img}
-                title={cat.title}
-                desc={cat.desc}
-                price={cat.price}
-              />
-            ))
-          ) : (
-            <div className="w-full flex justify-center items-center py-10">
-              <LoaderCircle className="w-8 h-8 text-gray-500 animate-spin" />
-            </div>
-          )}
-        </motion.section>
-
-        <ChooseUs />
+      <main>
+        <Hero />
+        <Marquee />
+        <div className="pt-16 sm:pt-20">
+          <Stats />
+        </div>
+        <Categories />
+        <WhyChooseUs />
         <SpecialMenu />
         <RegularFood />
-        <SpecialChefs />
+        <Chefs />
+        <Testimonials />
+        <CTASection />
       </main>
 
       <Footer />
     </div>
   );
 }
-
-export default App;
