@@ -3,7 +3,10 @@ import { features } from "../data";
 
 export default function WhyChooseUs() {
   return (
-    <section className="relative overflow-hidden bg-ink py-20 lg:py-28">
+    <section
+      id="why-choose"
+      className="relative overflow-hidden bg-ink py-20 lg:py-28"
+    >
       <div className="pointer-events-none absolute inset-0 opacity-30">
         <div className="absolute left-1/4 top-0 h-72 w-72 rounded-full bg-brand-500/40 blur-3xl animate-blob" />
         <div className="absolute bottom-0 right-1/4 h-72 w-72 rounded-full bg-spice-500/30 blur-3xl animate-blob [animation-delay:-8s]" />
